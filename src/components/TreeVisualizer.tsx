@@ -90,23 +90,27 @@ export default function TreeVisualizer() {
     if (!node) return null;
     return (
       <g key={node.value}>
-        {node.left && (
+        {node.left && node.x !== undefined && node.y !== undefined && node.left.x !== undefined && node.left.y !== undefined && (
           <line x1={node.x} y1={node.y} x2={node.left.x} y2={node.left.y} stroke="#888" strokeWidth={2} />
         )}
-        {node.right && (
+        {node.right && node.x !== undefined && node.y !== undefined && node.right.x !== undefined && node.right.y !== undefined && (
           <line x1={node.x} y1={node.y} x2={node.right.x} y2={node.right.y} stroke="#888" strokeWidth={2} />
         )}
-        <circle
-          cx={node.x}
-          cy={node.y}
-          r={22}
-          fill={searchPath.includes(node.value) ? (found === node.value ? '#34d399' : '#f87171') : '#60a5fa'}
-          stroke="#222"
-          strokeWidth={2}
-        />
-        <text x={node.x} y={node.y + 6} textAnchor="middle" fontSize={16} fill="#fff" fontWeight="bold">
-          {node.value}
-        </text>
+        {node.x !== undefined && node.y !== undefined && (
+          <>
+            <circle
+              cx={node.x}
+              cy={node.y}
+              r={22}
+              fill={searchPath.includes(node.value) ? (found === node.value ? '#34d399' : '#f87171') : '#60a5fa'}
+              stroke="#222"
+              strokeWidth={2}
+            />
+            <text x={node.x} y={node.y + 6} textAnchor="middle" fontSize={16} fill="#fff" fontWeight="bold">
+              {node.value}
+            </text>
+          </>
+        )}
         {renderTree(node.left)}
         {renderTree(node.right)}
       </g>
